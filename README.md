@@ -20,9 +20,13 @@
 
 <hr>
 
-<h3 align="center">A native PS5 ShellUI overlay for homebrew, system info and music controls</h3>
+<h3 align="center">Kabuki for PS5 13.60: native ShellUI homebrew overlay</h3>
 
 <hr>
+
+## Contents
+
+[Firmware and upstream](#firmware-and-upstream) · [Features](#what-it-does) · [Librespot](#with-librespot-ps5) · [Get started](#get-started) · [Controls](#using-it) · [Add tiles](#adding-your-own-tiles) · [Build](#building) · [PC preview](#pc-preview) · [Credits](#credits)
 
 Kabuki is a native control panel for homebrew that runs ShellUI code.
 
@@ -30,11 +34,15 @@ Hold your configured shortcut (default: **L3 + R3**) and Kabuki pops in from the
 
 Payloads can add their own tiles, display information and receive controller input through Kabuki. System readings and settings are built in; [librespot-ps5](https://github.com/stupiditytries/librespot-ps5) adds music controls, a queue and a library browser.
 
-**Tested on firmware 13.20.** Kabuki may work on firmware up to **13.60** and on other firmware versions, but those versions still need to be tested. There is no firmware version allowlist. Runtime method and hook checks still apply, so a version may refuse to load when its interface differs. Please report your firmware version and results.
+## Firmware and upstream
+
+This repo builds on the original [Kabuki PS5 project](https://github.com/stupiditytries/kabuki-ps5), including its native ShellUI overlay, configurable shortcut, provider tiles, controller navigation and PC preview. This 13.60-focused version adds settings for the shortcut and tile layout, plus Librespot status, tile visibility and graceful-stop controls.
+
+The original Kabuki project reports testing on firmware **13.20**. The changes in this repo target **13.60**, but have not yet been confirmed on-console; treat that firmware as experimental. Kabuki checks runtime methods and hook instructions rather than relying on a firmware allowlist, but those checks cannot guarantee compatibility when ShellUI differs. Please include your firmware version and relevant logs when reporting results.
 
 ## Get started
 
-**Download `kabuki-ps5.elf` from [Releases](https://github.com/kalkleven/kabuki-ps5/releases).** Follow [Using it](#using-it) to load it on your console.
+There is not yet a published 13.60 ELF release. Check [Releases](https://github.com/kalkleven/kabuki-ps5-13.60/releases) for a verified build, or follow [Building](#building) to compile the source. For loading a built ELF, follow [Using it](#using-it).
 
 ## What it does
 
