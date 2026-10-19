@@ -1,6 +1,6 @@
-Kabuki is a native control panel and homebrew overlay hub for PS5.
+Kabuki 0.2.0 release candidate 2 is a native control panel and homebrew overlay hub for PS5.
 
-This release candidate is available for console testing.
+This pre-release is for testing. It includes the current 13.60-focused changes and is not a confirmed firmware-compatible build.
 
 - Configurable shortcut, sounds and sidebar arrangement.
 - Built-in System and Settings cards.
@@ -8,10 +8,10 @@ This release candidate is available for console testing.
 - Music controls, queue and library cards supplied by a compatible librespot-ps5 receiver.
 - Library navigation resets when the receiver changes account or session.
 
-**Tested on firmware 13.20.** Kabuki may work on firmware up to 13.60 and on other
-firmware versions, but those versions still need to be tested. There is no firmware
-version allowlist; runtime method and hook validation still applies. Please report
-your firmware version and results.
+The original Kabuki project reports testing on firmware 13.20. This version targets
+firmware 13.60, but has not been confirmed on-console. Treat it as experimental:
+runtime method and hook checks cannot guarantee compatibility when ShellUI differs.
+Please report your firmware version and relevant logs with any test results.
 
 Copy `kabuki-ps5.elf` to a USB drive and load it manually. The default shortcut is
 L3 + R3 held for half a second. When using librespot-ps5, launch Kabuki first.
