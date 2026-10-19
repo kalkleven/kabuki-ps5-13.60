@@ -1,0 +1,13 @@
+{
+  "nlohmann/include/nlohmann/json.hpp": {
+    "url": "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp",
+    "sha256": "665fa14b8af3837966949e8eb0052d583e2ac105d3438baba9951785512cf921",
+    "license": "MIT"
+  },
+  "stb/stb_truetype.h": {
+    "url": "https://raw.githubusercontent.com/styluslabs/nanovgXC/dce4a2cc5ddece35bafd5a0cd7d917113981837e/example/stb/stb_truetype.h",
+    "sha256": "97233cfddd15dc96ea28d73b10599887584c38e3166b4cd3ef62934cb79b20e6",
+    "license": "MIT or public domain",
+    "used_by": "the PC preview only"
+  }
+}

@@ -1,0 +1,71 @@
+# Internal notes, plans and agent instructions: never committed
+AGENTS.md
+AGENTS.override.md
+CLAUDE.md
+GEMINI.md
+*HANDOFF*.md
+*handoff*.md
+*PLAN*.md
+*planning*.md
+research/
+notes/
+README-DRAFT.md
+.local/
+.claude/
+.codex/
+.agents/
+.agent/
+
+# Secrets and credentials
+.env
+.env.*
+secrets/
+credentials/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Sony's own files (fonts, UI resources, firmware modules) copied from a console for the
+# preview: keep them local, never publish them
+assets/system/
+*.sprx
+*.prx
+*.ps.bundle
+*.rco
+*.dll
+*.sbin
+*.otf
+*.ttf
+
+# Console screenshots and captures (they can show account names and notifications)
+captures/
+screenshots/
+screens/
+*.jpg
+*.jpeg
+
+# Build output and fetched dependencies
+build/
+dist/
+.deps/
+*.o
+*.a
+*.elf
+*.oelf
+*.self
+*.bin
+*.exe
+*.pdb
+__pycache__/
+*.pyc
+*.log
+*.dump
+*.dmp
+node_modules/
+
+# Editor and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

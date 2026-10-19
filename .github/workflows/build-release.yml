@@ -1,0 +1,86 @@
+name: Build and draft release
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kabuki-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y build-essential binutils clang-18 lld-18 python3 curl unzip
+      - name: Install verified community SDK
+        run: |
+          bash tools/ci/setup-sdk.sh "$RUNNER_TEMP/kabuki-sdk"
+          echo "PS5_PAYLOAD_SDK=$RUNNER_TEMP/kabuki-sdk/ps5-payload-sdk" >> "$GITHUB_ENV"
+      - name: Test, compile and package release payload
+        run: bash tools/ci/build-release.sh
+      - name: Upload release files
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: kabuki-${{ github.sha }}
+          path: |
+            dist/kabuki-ps5.elf
+            dist/SHA256SUMS.txt
+            dist/BUILD-INFO.txt
+            dist/RELEASE-NOTES.md
+          if-no-files-found: error
+          retention-days: 30
+
+  draft-release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Download this run's release files
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: kabuki-${{ github.sha }}
+          path: dist
+      - name: Verify release files
+        working-directory: dist
+        run: sha256sum --check SHA256SUMS.txt
+      - name: Create or update draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z][0-9A-Za-z.-]*)?$ ]]; then
+            echo 'Use a version tag such as v1.0.0 or v1.0.0-rc.1' >&2
+            exit 1
+          fi
+          if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft); then
+            if [[ "$draft" != true ]]; then
+              echo 'Refusing to replace assets on an already published release' >&2
+              exit 1
+            fi
+          else
+            gh release create "$RELEASE_TAG" --verify-tag --draft \
+              --title "Kabuki $RELEASE_TAG" --notes-file dist/RELEASE-NOTES.md
+          fi
+          gh release upload "$RELEASE_TAG" --clobber \
+            dist/kabuki-ps5.elf dist/SHA256SUMS.txt dist/BUILD-INFO.txt dist/RELEASE-NOTES.md
