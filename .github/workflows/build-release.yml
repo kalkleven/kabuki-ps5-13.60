@@ -46,9 +46,7 @@ jobs:
         env:
           RELEASE_TAG: ${{ inputs.release_tag }}
         run: |
-          git -c user.name="github-actions[bot]" \\
-  -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \\
-  tag -a "$RELEASE_TAG" "$GITHUB_SHA" -m "Kabuki $RELEASE_TAG"
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" tag -a "$RELEASE_TAG" "$GITHUB_SHA" -m "Kabuki $RELEASE_TAG"
           git push origin "refs/tags/$RELEASE_TAG"
 
   build:
