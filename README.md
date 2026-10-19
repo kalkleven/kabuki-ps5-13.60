@@ -42,7 +42,7 @@ The original Kabuki project reports testing on firmware **13.20**. The changes i
 
 ## Get started
 
-There is not yet a published 13.60 ELF release. Check [Releases](https://github.com/kalkleven/kabuki-ps5-13.60/releases) for a verified build, or follow [Building](#building) to compile the source. For loading a built ELF, follow [Using it](#using-it).
+Check [Releases](https://github.com/kalkleven/kabuki-ps5-13.60/releases) for available builds. Any build targeting firmware 13.60 is experimental and has not been confirmed on-console; review its release notes and checksum before loading it. To compile the source yourself, follow [Building](#building). For loading a built ELF, follow [Using it](#using-it).
 
 ## What it does
 
